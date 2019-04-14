@@ -21,7 +21,7 @@ services:
       - ARIA2_TOKEN=Hello
       - TRACKER_URL=https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt
     links:
-      - aria2
+      - aria2:aria2
     logging:
       driver: "json-file"
       options:
