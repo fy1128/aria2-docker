@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  aria2:
+    container_name: aria2
+    image: fy1128/aria2:aarch64
+    ports:
+      - "6800:6800"
+    volumes:
+      - /mnt/HD/Downloads:/data:rw
+      - ./conf:/root/conf
+    environment:
+      # - SSL=true
+       - RPC_SECRET=Hello
+    restart: always
+  bt-tracker:
+    container_name: bt-tracker
+    image: fy1128/aria2-bt-tracker:aarch64
+    environment:
+      - ARIA2_URL=http://aria2:6800/jsonrpc
+      - ARIA2_TOKEN=Hello
+      - TRACKER_URL=https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_all.txt
+    links:
+      - aria2
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+    restart: always
+
+
