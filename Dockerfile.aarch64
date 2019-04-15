@@ -1,4 +1,4 @@
-FROM amd64/alpine:3.8
+FROM multiarch/alpine:aarch64-edge 
 
 ENV TZ=Asia/Shanghai
 
@@ -6,6 +6,7 @@ WORKDIR /data
 
 ENV RPC_SECRET=Hello
 
+COPY qemu-aarch64-static /usr/bin/
 COPY conf /root/conf
 COPY aria2c.sh /root/aria2c.sh
 
@@ -19,5 +20,9 @@ RUN set -ex; \
 VOLUME /root/conf
 # User downloaded files
 VOLUME /data
+
+RUN set -ex; \
+	\
+	rm /usr/bin/qemu-aarch64-static
 
 CMD ["/bin/sh", "/root/aria2c.sh" ]
