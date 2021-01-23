@@ -1,4 +1,6 @@
-FROM amd64/alpine:3.8
+FROM --platform=$TARGETPLATFORM alpine AS runtime
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
 ENV TZ=Asia/Shanghai
 
