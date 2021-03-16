@@ -9,17 +9,17 @@ WORKDIR /data
 ENV RPC_SECRET=Hello
 
 COPY conf /root/conf
-COPY aria2c.sh /root/aria2c.sh
+COPY entrypoint.sh /usr/local/bin/
 
 RUN set -ex; \
 	\
 	apk --no-cache --no-progress upgrade; \
 	apk update && apk add aria2 --no-cache; \
-	chmod +x /root/aria2c.sh
+	chmod +x /usr/local/bin/entrypoint.sh
 
 #The folder to store conf, ssl keys, session
 VOLUME /root/conf
 # User downloaded files
 VOLUME /data
 
-CMD ["/bin/sh", "/root/aria2c.sh" ]
+ENTRYPOINT [ "entrypoint.sh" ]
